@@ -1,19 +1,31 @@
 import { Environment, Float, Lightformer, Sparkles } from "@react-three/drei";
 import { ChristmasBall } from "./Ball";
 import { useFrame } from "@react-three/fiber";
+import { Suspense, useRef } from "react";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
 
 export default function Scene() {
-  useFrame(({ camera, clock }) => {
-    const nx = Math.cos(clock.getElapsedTime()) * 0.2;
-    const ny = Math.sin(clock.getElapsedTime()) * 0.2;
-    camera.position.x = nx;
-    camera.position.y = ny + 2;
+  const sparklesRef = useRef();
+
+  useFrame(({ camera, clock }, delta) => {
+    // const nx = Math.cos(clock.getElapsedTime()) * 0.2;
+    // const ny = Math.sin(clock.getElapsedTime()) * 0.2;
+    // camera.position.x = nx;
+    // camera.position.y = ny + 2;
+    sparklesRef.current.rotation.x += delta * 0.01;
   });
   return (
     <>
       <color args={["#708CC2"]} attach="background" />
 
       <Sparkles
+        ref={sparklesRef}
         color="snow"
         count={2000}
         noise={1}
@@ -33,11 +45,23 @@ export default function Scene() {
       </Environment>
 
       <ambientLight intensity={4} />
-      <directionalLight position={[1, 2, 3]} intensity={4} />
+      <directionalLight position={[0, 5, 0]} intensity={2} />
 
       <Float speed={2}>
-        <ChristmasBall scale={2} position={[0, -0.5, -4]} />
+        <Suspense fallback={null}>
+          <ChristmasBall scale={3} position={[0, 2.8, -4]} />
+        </Suspense>
       </Float>
+
+      <EffectComposer>
+        <DepthOfField
+          focusDistance={0}
+          focalLength={0.7}
+          bokehScale={2}
+          height={480}
+        />
+        <Noise opacity={0.02} />
+      </EffectComposer>
     </>
   );
 }

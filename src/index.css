@@ -16,7 +16,7 @@ h1 {
   font-size: 70px;
 }
 
-text {
+small {
   width: 45ch;
   font-size: 18px;
   font-family: "Snowburst One";
@@ -37,7 +37,7 @@ text {
   h1 {
     font-size: 32px;
   }
-  text {
+  small {
     font-size: 10px;
   }
 }

@@ -8,7 +8,7 @@ function App() {
         <Scene />
       </Canvas>
       <div className="christmas-card">
-        <text>have yourself a</text>
+        <small>have yourself a</small>
         <h1>Merry Little</h1>
         <h1>Christmas</h1>
       </div>
