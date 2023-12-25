@@ -3,22 +3,18 @@ import { ChristmasBall } from "./Ball";
 import { useFrame } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import {
-  Bloom,
   DepthOfField,
   EffectComposer,
   Noise,
-  Vignette,
 } from "@react-three/postprocessing";
+import { BufferGeometry, NormalBufferAttributes, Points } from "three";
 
 export default function Scene() {
-  const sparklesRef = useRef();
+  const sparklesRef =
+    useRef<Points<BufferGeometry<NormalBufferAttributes>>>(null);
 
-  useFrame(({ camera, clock }, delta) => {
-    // const nx = Math.cos(clock.getElapsedTime()) * 0.2;
-    // const ny = Math.sin(clock.getElapsedTime()) * 0.2;
-    // camera.position.x = nx;
-    // camera.position.y = ny + 2;
-    sparklesRef.current.rotation.x += delta * 0.01;
+  useFrame((_, delta) => {
+    sparklesRef.current!.rotation.x += delta * 0.01;
   });
   return (
     <>
@@ -40,12 +36,12 @@ export default function Scene() {
           position={[0, 0, -5]}
           scale={10}
           color="#88A4DA"
-          intensity={10}
+          intensity={3}
         />
       </Environment>
 
       <ambientLight intensity={4} />
-      <directionalLight position={[0, 5, 0]} intensity={2} />
+      <directionalLight position={[1, 2, 3]} intensity={2} />
 
       <Float speed={2}>
         <Suspense fallback={null}>
