@@ -2,11 +2,7 @@ import { Environment, Float, Lightformer, Sparkles } from "@react-three/drei";
 import { ChristmasBall } from "./Ball";
 import { useFrame } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
-import {
-  DepthOfField,
-  EffectComposer,
-  Noise,
-} from "@react-three/postprocessing";
+import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
 import { BufferGeometry, NormalBufferAttributes, Points } from "three";
 
 export default function Scene() {
@@ -45,7 +41,7 @@ export default function Scene() {
 
       <Float speed={2}>
         <Suspense fallback={null}>
-          <ChristmasBall scale={3} position={[0, 2.8, -4]} />
+          <ChristmasBall scale={3} position={[0, 2.6, -4]} />
         </Suspense>
       </Float>
 
@@ -56,7 +52,6 @@ export default function Scene() {
           bokehScale={2}
           height={480}
         />
-        <Noise opacity={0.02} />
       </EffectComposer>
     </>
   );
